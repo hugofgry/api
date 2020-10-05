@@ -4,7 +4,7 @@ import uvicorn
 
 app = FastAPI()
 # Connection a la base sqlite
-connection = sqlite3.connect('scrap_game.db')
+connection = sqlite3.connect('scrap_game(1).db')
 c = connection.cursor()
 # Selection de la base de donnée
 # Selection de la collection == SQL Table
@@ -13,7 +13,7 @@ c = connection.cursor()
 
 
 @app.get("/games")
-async def one_game ():
+async def all_game ():
     c.execute("SELECT title, type, release_date,platform,price, publisher FROM games JOIN release_details ON games.id = release_details.game_id JOIN games_details ON games.id = games_details.game_id;")
     game = c.fetchall()
     conn.commit()
