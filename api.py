@@ -13,26 +13,18 @@ c = connection.cursor()
 
 
 @app.get("/games")
-async def get_all_game():
-    c.execute("SELECT * FROM games;")
+async def one_game ():
+    c.execute("SELECT title, type, release_date,platform,price, publisher FROM games JOIN release_details ON games.id = release_details.game_id JOIN games_details ON games.id = games_details.game_id;")
     game = c.fetchall()
-    connection.commit()
+    conn.commit()
     return game
 
-@app.get("/camambert_plateforme")
-async def plateforme_count():
-  c.execute("SELECT Plateforme, COUNT(Plateforme) FROM games GROUP BY Plateforme;")
-  co = c.fetchall()
-  connection.commit()
-  return co
-
-@app.get("/games/name")
-async def get_all_names():
-    c.execute("SELECT Titre FROM games;")
-    game = c.fetchall()
-    connection.commit()
-    return game
-
+@app.get("/games/count")
+async def count_platform():
+    c.execute("SELECT platform, COUNT(platform) FROM games GROUP BY platform;")
+    count = c.fetchall()
+    conn.commit()
+    return count
 
 # @app.get("/students/id/{student_id}")
 # async def get_student_by_id(student_id):
