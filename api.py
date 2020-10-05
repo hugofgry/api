@@ -4,8 +4,8 @@ import uvicorn
 
 app = FastAPI()
 # Connection a la base sqlite
-connection = sqlite3.connect('scrap_game(1).db')
-c = connection.cursor()
+conn = sqlite3.connect('scrap_game(1).db')
+c = conn.cursor()
 # Selection de la base de donnée
 # Selection de la collection == SQL Table
 
