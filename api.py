@@ -21,7 +21,7 @@ async def all_game ():
 
 @app.get("/games/count")
 async def count_platform():
-    c.execute("SELECT platform, COUNT(platform) FROM games GROUP BY platform;")
+    c.execute("SELECT platform, COUNT(platform) FROM release_details GROUP BY platform;")
     count = c.fetchall()
     conn.commit()
     return count
