@@ -16,7 +16,6 @@ c = conn.cursor()
 async def all_game ():
     c.execute("SELECT title, type, release_date,platform,price, publisher FROM games JOIN release_details ON games.id = release_details.game_id JOIN games_details ON games.id = games_details.game_id;")
     game = c.fetchall()
-    headers = Access-Control-Allow-Origin: https://app-hidn.herokuapp.com/games
     conn.commit()
     return game
 
