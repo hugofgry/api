@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/games")
 async def one_game ():
-    c.execute("SELECT * FROM games;")
+    c.execute("SELECT title, type, release_date,platform, publisher  FROM games JOIN release_details ON games.id = release_details.game_id JOIN games_details ON games.id = games_details.game_id;")
     game = c.fetchall()
     conn.commit()
     return game
@@ -19,3 +19,6 @@ async def count_platform():
     count = c.fetchall()
     conn.commit()
     return count
+
+
+    SELECT title, type, release_date,platform, publisher  FROM games JOIN release_details ON games.id = release_details.game_id JOIN games_details ON games.id = games_details.game_id;
