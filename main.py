@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 import sqlite3
+from sqlite3 import connect
 
 conn = sqlite3.connect('scrap_game.db')
 c = conn.cursor()
