@@ -4,3 +4,4 @@ bob-builder==0.0.18
 # Sub-dependencies of bob-builder.
 boto==2.49.0
 docopt==0.6.2
+uvicorn==0.12.1
