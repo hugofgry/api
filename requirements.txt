@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 dnspython
-BeautifulSoup
+BeautifulSoup4
 pandas
 urllib.request
 os
