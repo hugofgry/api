@@ -8,6 +8,7 @@ import json
 import sys
 import pandas as pd
 import os
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 # Connection a la base sqlite
@@ -28,12 +29,25 @@ async def all_game ():
 
 @app.get("/games/count")
 async def count_platform():
-    c.execute("SELECT platform, COUNT(platform) FROM release_details GROUP BY platform;")
-    count = c.fetchall()
+    df = pd.read_sql_query("SELECT platform, COUNT(platform) FROM release_details GROUP BY platform;", conn)
+    df = df.rename(columns={'COUNT(platform)': 'pourcent', "platform" : "name"})
+    d = df.to_dict('records')
+    headers = {"Access-Control-Allow-Origin":"*"}
     conn.commit()
-    return count
+    return JSONResponse(content=d, headers=headers)
 
-@app.get("/start_scrap")
+
+
+@app.get("/games/type")
+async def diferents_types():
+    df = pd.read_sql_query("SELECT type, COUNT(type) FROM games GROUP BY type;", conn)
+    df = df.rename(columns={'COUNT(type)': 'nombres', "type" : "genre"})
+    d = df.to_dict('records')
+    headers = {"Access-Control-Allow-Origin":"*"}
+    conn.commit()
+    return JSONResponse(content=d, headers=headers)
+
+@app.get("/admin2468/start_scrap")
 async def start_scrapper():
 
   inc = 0
@@ -191,13 +205,14 @@ async def start_scrapper():
 #     return {"student_id": student_id}
 
 
-# @app.get("/students/name/{lastname}")
-# async def get_student_by_name(lastname):
-#   student = COLLECTION_STUDENTS.find_one({"name" : lastname})
-#   student["_id"] = str(student["_id"])
-#   return student
-
-
+@app.get("/games/count/publisher")
+async def get_count_publisher():
+  df = pd.read_sql_query("SELECT publisher, COUNT(publisher) FROM games_details GROUP BY publisher;", conn)
+  df = df.rename(columns={'COUNT(publisher)': 'nombre', "publisher" : "name"})
+  d = df.to_dict('records')
+  headers = {"Access-Control-Allow-Origin":"*"}
+  conn.commit()
+  return JSONResponse(content=d, headers=headers)
 # @app.post("/students")
 # async def create_student(student: Student):
 #     student_id = str(COLLECTION_STUDENTS.insert_one(student.dict()).inserted_id)
