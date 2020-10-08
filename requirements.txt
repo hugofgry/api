@@ -3,7 +3,3 @@ uvicorn
 dnspython
 BeautifulSoup4
 pandas
-urllib.request
-os
-json
-sys
