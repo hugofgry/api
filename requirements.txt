@@ -1,3 +1,9 @@
 fastapi
 uvicorn
 dnspython
+BeautifulSoup
+pandas
+urllib.request
+os
+json
+sys

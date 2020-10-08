@@ -26,8 +26,9 @@ async def count_platform():
     conn.commit()
     return count
 
-# @app.get("/students/id/{student_id}")
-# async def get_student_by_id(student_id):
+@app.get("/games/month")
+  async def get_number_games_per_month():
+
 #     return {"student_id": student_id}
 
 
